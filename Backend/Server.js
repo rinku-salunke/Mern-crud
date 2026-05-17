@@ -1,33 +1,18 @@
-// const express = require("express");
-// const app = express();
-// const port = 3000;
-
-// app.get("/", (req, res) => {
-//   res.send("Hello World! Welcome to the backend server.");
-// });
-
-// app.listen(port, () => {
-//   console.log(`Server running successfully at: http://localhost:${port}`);
-// });
-
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const connectDB = require("./Config/db"); // 1. Import your database function
 
 // Initialize configuration
 dotenv.config();
 const app = express();
 
+// 2. Execute the database connection
+connectDB();
+
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// Connect to Cloud Database
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("🚀 Connected smoothly to MongoDB Atlas Cloud!"))
-  .catch((err) => console.error("❌ Database connection error:", err));
 
 // Test Route
 app.get("/", (req, res) => {
